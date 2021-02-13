@@ -45,7 +45,7 @@ func generatePoints(s string) ([]Point, error) {
 
 // getArea gets the area inside from a given shape
 func getArea(points []Point) float64 {
-	// Your code goes here
+	// Muchos ifs de 2,3,4,5 vertices para sacar area de cada uno
 	return 0.0
 }
 
