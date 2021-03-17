@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 )
 
 //Strut made for test 1 following the example
@@ -72,47 +71,7 @@ func infoSearching(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	limitDtree := 3
-	for _, c := range xmlResult.Contents {
-		objKey := c.Key
-		dir := fmt.Sprintf("%v/", reqDir)
 
-		if reqDir != "" && !strings.HasPrefix(objKey, dir) {
-			continue
-		}
-
-		if reqDir != "" && strings.HasPrefix(objKey, dir) {
-			objKey = strings.Replace(objKey, dir, "", 1)
-			if objKey == "" {
-				continue
-			}
-		}
-
-		if strings.Count(objKey, "/") > limitDtree {
-			continue
-		}
-		if strings.HasSuffix(objKey, "/") {
-			if !directories[objKey] {
-				directories[objKey] = true
-			}
-		}
-
-		if strings.Contains(objKey, ".") {
-			_, exists := objects[objKey]
-			if !exists {
-				objects[objKey] = true
-			}
-
-			ext := strings.Split(objKey, ".")
-			_, exists = extensions[ext[len(ext)-1]]
-			if !exists {
-				extensions[ext[len(ext)-1]] = 1
-			}
-			if exists {
-				extensions[ext[len(ext)-1]] += 1
-			}
-
-		}
-	}
 	//Using both structs to put the xml info in their place and then using MarshalIndent
 	//MarshalIndent returns the encoding but with a specific format
 	if reqDir == "" {
