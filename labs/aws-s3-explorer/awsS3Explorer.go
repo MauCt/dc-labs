@@ -12,11 +12,12 @@ import (
 	"strings"
 )
 
+//Strut made for test 1 following the example
 type onlyBucketCase struct {
 	BucketName       string
 	ObjectsCount     int
 	DirectoriesCount int
-	Extensions       map[string]int
+	Extensions       map[string]int //Map used because it can have more than 1 extension
 }
 
 type bucketAndDirCase struct {
@@ -24,13 +25,17 @@ type bucketAndDirCase struct {
 	DirectoryName    string
 	ObjectsCount     int
 	DirectoriesCount int
-	Extensions       map[string]int
+	Extensions       map[string]int //Map used because it can have more than 1 extension
 }
 
+//Identifie the object in a bucket.
+//https://docs.aws.amazon.com/AmazonS3/latest/dev-retired/UsingMetadata.html
 type Content struct {
 	Key string `xml:"Key"`
 }
 
+//struct for the XML File from AWS
+//https://www.golangprograms.com/golang-write-struct-to-xml-file.html
 type XMLResult struct {
 	XMLName  xml.Name  `xml:"ListBucketResult"`
 	Name     string    `xml:"Name"`
@@ -108,7 +113,8 @@ func infoSearching(res http.ResponseWriter, req *http.Request) {
 
 		}
 	}
-
+	//Using both structs to put the xml info in their place and then using MarshalIndent
+	//MarshalIndent returns the encoding but with a specific format
 	if reqDir == "" {
 		bd := onlyBucketCase{
 			BucketName:       xmlResult.Name,
@@ -156,3 +162,5 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
+//https://www.example-code.com/golang/s3.asp
