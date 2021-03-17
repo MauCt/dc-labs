@@ -70,7 +70,6 @@ func infoSearching(res http.ResponseWriter, req *http.Request) {
 		io.WriteString(res, "Permission denied\n")
 		return
 	}
-	limitDtree := 3
 
 	//Using both structs to put the xml info in their place and then using MarshalIndent
 	//MarshalIndent returns the encoding but with a specific format
